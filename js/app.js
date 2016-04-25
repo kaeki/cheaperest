@@ -59,7 +59,7 @@ function showBarInfo(barl){
 		case "Bar Barbababa":
 			$('#barInfo').html(
 				"<h3>"+barsArray[0].name+"</h3>"+
-				"<p>"+barsArray[0].name+"</p>"+
+				"<p>"+barsArray[0].address+"</p>"+
 				"<p> Rating: 5/5</p>"
 				);
 			$('#barComments').html(
@@ -75,7 +75,7 @@ function showBarInfo(barl){
 		case "Pub PubloEblo":
 			$('#barInfo').html(
 				"<h3>"+barsArray[1].name+"</h3>"+
-				"<p>"+barsArray[1].name+"</p>"+
+				"<p>"+barsArray[1].address+"</p>"+
 				"<p> Rating: 4/5</p>"
 				);
 			$('#barComments').html(
@@ -91,7 +91,7 @@ function showBarInfo(barl){
 		case "Bistro Pivo":
 			$('#barInfo').html(
 				"<h3>"+barsArray[2].name+"</h3>"+
-				"<p>"+barsArray[2].name+"</p>"+
+				"<p>"+barsArray[2].address+"</p>"+
 				"<p> Rating: 3/5</p>"
 				);
 			$('#barComments').html(
