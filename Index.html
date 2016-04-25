@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+<meta charset ="UTF-8">
+<title>Cheaperest</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/awesomplete.css">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body>
+	<div width="100%" style="background-color: #FFC30E;">
+		<br>
+		<img alt="Brand" src="img/logo.png" width="200px">
+		<br>
+		<br>
+	</div>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    	<div class="navbar-header">
+
+	    	</div>
+		</div>
+		<form class="navbar-form navbar-left" role="search">
+		  <div class="form-group">
+		    <input type="text" class="form-control" placeholder="Username">
+		  </div>
+		   <div class="form-group">
+		    <input type="password" class="form-control" placeholder="Password">
+		  </div>
+		  <button type="submit" class="btn btn-default">Sign In</button>
+		  <button class="btn btn-default">Sign Up</button>
+		</form>
+		<form class="navbar-form navbar-right" role="search">
+		  <div class="form-group">
+		    <input id="barSearch" type="text" class="form-control awesomplete" placeholder="Find a bar by name"
+		    data-list="Bar Barbababa, Pub PubloEblo, Bistro Pivo">
+		  </div>
+		  <button type="button" class="btn btn-default" onclick="barSearchFunction();">Search</button>
+		</form>
+
+	</nav>	 
+	<div class="row">
+		<div class="col-sm-8">
+			<div id="mapid" style="height: 480px;"></div>
+		</div>
+		<div class="col-sm-4">
+			<h3>Top 3:</h3>
+			<table id="topThree" class="table">
+		     	<tr>
+		        	<th>#</th>
+		        	<th>Bar</th>
+		        	<th>Address</th>
+		        	<th>Rating</th>
+		    	</tr>
+			</table>
+			<hr>
+			<h3>New Bars</h3>
+			<table id="newBars" class="table">
+				<tr>
+			        <th>#</th>
+			        <th>Bar</th>
+			        <th>Address</th>
+			        <th>Rating</th>
+		     	</tr>
+			</table>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-4" id="barInfo">
+		</div>
+		<div class="col-sm-8" id="barComments">
+	</div>
+
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/awesomplete.js"></script>
+</body>
+</html>
