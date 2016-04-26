@@ -104,6 +104,10 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
+        self.routes['/omablop'] = function(req, res) {
+            var link = "http://placekitten.com/300/400";
+            res.send("<html><body><img src='" + link + "'></body></html>");
+        };
     };
 
 
