@@ -1,61 +1,111 @@
+//Testi-Baarit
 
-var mymap = L.map('mapid').setView([60.169768, 24.938578], 13);
-
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'attejee.pp8gce0d',
-    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
-}).addTo(mymap);
 
 var barsArray = [{
 					ID: 1,
 					name: "Bar Barbababa",
 					address: "Nönönö 12, HKI",
 					lat: 60.164964,
-					lon: 24.939901
+					lon: 24.939901,
+					rating: [4,5,5,5,5,5,5,5]	
 				},{
 					ID: 2,
 					name: "Pub PubloEblo",
 					address: "Nununnu 28, HKI",
 					lat: 60.189295,
-					lon: 24.951231
+					lon: 24.951231,
+					rating: [3,4,3,3,4,4,3,5,2]
 				},{
 					ID: 3,
 					name: "Bistro Pivo",
 					address: "Juhsad 39, HKI",
 					lat: 60.184260,
-					lon: 24.920331
+					lon: 24.920331,
+					rating: [3,2,4,3,3,2,2,1]
 				}];
 
-console.log(barsArray[0].lat)
 
-for (var i=0; i < barsArray.length; i++){
+/*
+//Gets Bars from google sheet / OR NOT
+function getBars (){
+	 // ID of the Google Spreadsheet
+	 var spreadsheetID = "1X3C5Peao4M5vTspsmJgegVRwGFtdRL-rGV_Vmunv9zs";
+	 
+	 // Make sure it is public or set to Anyone with link can view 
+	 var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/basic?alt=json";
+	 
+	var mydata = [];
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		success: function (json) {
+			var entry = json.feed.entry;
+			console.log(entry);
+			for (var i=0; i<entry.length; i++){
+			  	var barString = entry[i].content.$t;
+			  	var bar = $.parseJSON(barString);
+			  	console.log(bar);
+			}
+		}
+	});
+}
+getBars();
+*/
+function createMap(barsArray){
+	var mymap = L.map('mapid').setView([60.169768, 24.938578], 13);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+	    maxZoom: 18,
+	    id: 'attejee.pp8gce0d',
+	    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
+	}).addTo(mymap);
+
+	for (var i=0; i < barsArray.length; i++){
 	var marker = L.marker([barsArray[i].lat, barsArray[i].lon]).addTo(mymap);
 	marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
-}
-var sideBoxHTML;
-function setSideBoxHTML(sideBoxHTML){
-	var rate = 5;
+	}
+	addBarMarker(barsArray, mymap);
+};
+
+
+function addBarMarker(barsArray, mymap){
 	for (var i=0; i < barsArray.length; i++){
-		sideBoxHTML += '<tr><td>'+(i+1)+'.</td><td><a href="#" onclick="showBarInfo(bar);return false;">'+
-		barsArray[i].name+'</a></td><td>'+barsArray[i].address+'</td><td>'+(rate-i)+'/5</td></tr>';
+		var marker = L.marker([barsArray[i].lat, barsArray[i].lon]).addTo(mymap);
+		marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
+	};
+}
+function barRatingAverage (ratingArray){
+	var sum = 0;
+	for (var i=0; i < ratingArray.length; i++){
+		sum += parseInt(ratingArray[i]);
+	};
+	var unrounded = sum / ratingArray.length;
+	var ratingAverage = Math.round(unrounded * 10) / 10;
+	return ratingAverage;
+}
+
+function setSideBoxHTML(barsArray){
+	var sideBoxHTML;
+	for (var i=0; i < barsArray.length; i++){
+		var rating = barRatingAverage(barsArray[i].rating)
+		var barName = barsArray[i].name;
+		sideBoxHTML += '<tr><td>'+(i+1)+'.</td><td><a href="#" onclick="showBarInfo('+barName+')">'+
+		barsArray[i].name+'</a></td><td>'+barsArray[i].address+'</td><td>'+rating+'/5</td></tr>';
 	};
 
 	$('#topThree').append(sideBoxHTML);
 	$('#newBars').append(sideBoxHTML);
 }
 
-setSideBoxHTML(sideBoxHTML);
-
-var bar;
 function barSearchFunction(){
-	barl = $('#barSearch').val();
-	showBarInfo(barl);
+	bar = $('#barSearch').val();
+	showBarInfo(bar);
 };
-function showBarInfo(barl){
-	var bar = barl;
-	switch(bar){
+
+function showBarInfo(barName){
+
+	switch(barName){
 		case "Bar Barbababa":
 			$('#barInfo').html(
 				"<h3>"+barsArray[0].name+"</h3>"+
@@ -108,3 +158,8 @@ function showBarInfo(barl){
 			break;
 	};
 }
+
+$(document).ready(function(){
+	createMap(barsArray);
+	setSideBoxHTML(barsArray);
+});
