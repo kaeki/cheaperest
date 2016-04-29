@@ -139,11 +139,20 @@ var SampleApp = function() {
             var link = "http://i.imgur.com/kmbjB.png";
             res.send("<html><body><img src='" + link + "'></body></html>");
         };
+        self.routes['/getFavourite'] = function (req, res) {
+            var favourite = {
+                name: "Bar Barbababa",
+                city: "Helsinki",
+                lat: 12.1212,
+                lng: 23.2323
+            };
+            res.send(favourite);
+        };
 
         self.routes['/bars'] = function (req, res) {
         var result = self.getBars(self.getConf());
         console.log(result);
-       res.send("<html><body><h3>Näkyykkö dataaaa:::</h3><p>"+result+"</p></body></html>");
+        res.send("<html><body><h3>Näkyykkö dataaaa:::</h3><p>"+result+"</p></body></html>");
         };
 
         self.routes['/'] = function(req, res) {
