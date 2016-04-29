@@ -41,8 +41,9 @@ var SampleApp = function() {
     // the client db connection scope is wrapped in a callback:
     MongoClient.connect('mongodb://'+connection_string, function(err, db) {
       if(err) throw err;
-      var collection = db.collection('books').find().limit(10).toArray(function(err, docs) {
+      var collection = db.collection('bars').find().limit(10).toArray(function(err, docs) {
         console.dir(docs);
+        console.log(docs);
         db.close();
       })
     })
@@ -136,8 +137,9 @@ var SampleApp = function() {
             res.send("<html><body><img src='" + link + "'></body></html>");
         };
 
-        self.routes['/koira'] = function (req, res) {
-       self.connectToMyMongo();
+        self.routes['/bars'] = function (req, res) {
+        var result = self.connectToMyMongo();
+        console.log(result);
        res.send("<html><body><p>Hei koira!</p></body></html>");
         };
 
