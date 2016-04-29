@@ -12,13 +12,6 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-
-
-    self.use(function(req, res next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      next();
-    });    
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
@@ -162,6 +155,8 @@ var SampleApp = function() {
                 if (err) throw err;
                 var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
                     console.dir(docs);
+                    res.header("Access-Control-Allow-Origin", "*");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                     res.send(docs);
                     db.close();
                 });
