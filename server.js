@@ -4,12 +4,6 @@ var express = require('express');
 var fs      = require('fs');
 var mongodb = require('mongodb');
 
-
-app.use(function(req, res next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 /**
  *  Define the sample application.
  */
@@ -18,7 +12,13 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-    
+
+
+    self.use(function(req, res next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });    
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
