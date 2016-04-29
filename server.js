@@ -2,7 +2,7 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
-
+var mongodb = require('mongodb');
 
 /**
  *  Define the sample application.
@@ -12,6 +12,42 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
+    
+    /* =================================================================  */
+    /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
+    /* =================================================================  */
+    
+    
+    self.connectToMyMongo = function () {
+    
+    console.log("mongo");
+    // 1. KONFIGURAATIO
+    
+    // default to a 'localhost' configuration:
+    var connection_string = '127.0.0.1:27017/YOUR_APP_NAME';
+    // if OPENSHIFT env variables are present, use the available connection info:
+    if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+      connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+      process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+      process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+      process.env.OPENSHIFT_APP_NAME;
+    }
+    
+    // 2. YHTEYDENOTTO 
+    
+    //load the Client interface
+    var MongoClient = require('mongodb').MongoClient;
+    // the client db connection scope is wrapped in a callback:
+    MongoClient.connect('mongodb://'+connection_string, function(err, db) {
+      if(err) throw err;
+      var collection = db.collection('books').find().limit(10).toArray(function(err, docs) {
+        console.dir(docs);
+        db.close();
+      })
+    })
+    
+    };
 
     /*  ================================================================  */
     /*  Helper functions.                                                 */
@@ -100,13 +136,14 @@ var SampleApp = function() {
             res.send("<html><body><img src='" + link + "'></body></html>");
         };
 
+        self.routes['/koira'] = function (req, res) {
+       self.connectToMyMongo();
+       res.send("<html><body><p>Hei koira!</p></body></html>");
+        };
+
         self.routes['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
-        };
-        self.routes['/kissantai'] = function(req, res) {
-            var link = "http://placekitten.com/300/400";
-            res.send("<html><body><img src='" + link + "'></body></html>");
         };
     };
 
@@ -160,4 +197,3 @@ var SampleApp = function() {
 var zapp = new SampleApp();
 zapp.initialize();
 zapp.start();
-
