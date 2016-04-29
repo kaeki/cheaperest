@@ -18,13 +18,13 @@ var SampleApp = function() {
     /* =================================================================  */
     
     
-    self.connectToMyMongo = function () {
+    self.getConf = function () {
     
     console.log("mongo");
     // 1. KONFIGURAATIO
     
     // default to a 'localhost' configuration:
-    var connection_string = '127.0.0.1:27017/YOUR_APP_NAME';
+    var connection_string = '127.0.0.1:27017/barbababa';
     // if OPENSHIFT env variables are present, use the available connection info:
     if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
       connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
@@ -33,9 +33,11 @@ var SampleApp = function() {
       process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
       process.env.OPENSHIFT_APP_NAME;
     }
-    
+    return connection_string;
+    };
     // 2. YHTEYDENOTTO 
-    
+    self.getBars = function (connection_string) {
+    var result; 
     //load the Client interface
     var MongoClient = require('mongodb').MongoClient;
     // the client db connection scope is wrapped in a callback:
@@ -43,11 +45,12 @@ var SampleApp = function() {
       if(err) throw err;
       var collection = db.collection('bars').find().limit(10).toArray(function(err, docs) {
         console.dir(docs);
-        console.log(docs);
+        result = docs;
+        console.log(collection);
         db.close();
       })
     })
-    
+    return result;
     };
 
     /*  ================================================================  */
@@ -138,9 +141,9 @@ var SampleApp = function() {
         };
 
         self.routes['/bars'] = function (req, res) {
-        var result = self.connectToMyMongo();
+        var result = self.getBars(self.getConf());
         console.log(result);
-       res.send("<html><body><p>Hei koira!</p></body></html>");
+       res.send("<html><body><h3>Näkyykkö dataaaa:::</h3><p>"+result+"</p></body></html>");
         };
 
         self.routes['/'] = function(req, res) {
