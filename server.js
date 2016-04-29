@@ -148,13 +148,18 @@ var SampleApp = function() {
             };
             res.send(favourite);
         };
-
         self.routes['/bars'] = function (req, res) {
-        var result = self.getBars(self.getConf());
-        console.log(result);
-        res.send("<html><body><h3>Näkyykkö dataaaa:::</h3><p>"+result+"</p></body></html>");
+            var connection_string = getConf();
+            // the client db connection scope is wrapped in a callback:
+            MongoClient.connect('mongodb://' + connection_string, function (err, db) {
+                if (err) throw err;
+                var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
+                    console.dir(docs);
+                    res.send(docs);
+                    db.close();
+                });
+            });
         };
-
         self.routes['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
