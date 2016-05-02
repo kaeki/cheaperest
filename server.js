@@ -175,15 +175,22 @@ var SampleApp = function() {
                 var lon = parseFloat(req.body.lon);
                 self.db.collection('bars').insert( {'name':name, 'address':address, 'postCode':postCode, 'city': city, 'location':[lon,lat]}, function(err, records){
                 if (err) { throw err; }
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 res.end('success');
                 });
+                db.close();
             });
         };
         self.routes['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
+        };
+        self.routes['/cheaperest'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('cheaperest2.0/index.html') );
+        };
+        self.routes['/webform'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('cheaperest2.0/webform.html') );
         };
     };
 
