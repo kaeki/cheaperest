@@ -14,11 +14,7 @@ var SampleApp = function() {
 
     //  Scope.
     var self = this;
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({
-        "extended": false
-    }));
- 
+
     app.use(express.static('static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
