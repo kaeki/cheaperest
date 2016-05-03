@@ -29,10 +29,7 @@ function showLocation(location){
 	console.log(barData);
 
 	var url = "http://barbababa-skeletor.rhcloud.com/saveBar";
-	$.$.post(url, barData, function(data, textStatus, xhr) {
-		console.log(status);
-	});
-	/*
+
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -43,7 +40,7 @@ function showLocation(location){
 			console.log(json);
 		}
 	});
-	*/
+	
 };
 
 $("#barForm").submit(function( event ) {

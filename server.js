@@ -11,11 +11,10 @@ var SampleApp = function() {
 
     //  Scope.
     var self = this;
-
+    app.use(express.static('static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
-    
     
     self.getConf = function () {
     
@@ -177,8 +176,6 @@ var SampleApp = function() {
                 if (err) { throw err; }
                 res.end('success');
                 });
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 db.close();
             });
         };
