@@ -187,14 +187,7 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
-        self.routes['/cheaperest'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
-        };
-        self.routes['/webform'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('cheaperest2.0/webform.html') );
-        };
+
     };
 
 
