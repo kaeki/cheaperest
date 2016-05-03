@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "cors": "^2.7.1",
-    "express": "~3.4.4"
+    "body-parser": "^1.15.0",
+    "express": "~4.13.4"
   },
   "devDependencies": {},
   "bundleDependencies": [],

@@ -4,6 +4,9 @@ var express = require('express');
 var fs      = require('fs');
 var mongodb = require('mongodb');
 
+var app = express();
+var bodyParser = require("body-parser");
+var router = express.Router();
 /**
  *  Define the sample application.
  */
@@ -11,7 +14,12 @@ var SampleApp = function() {
 
     //  Scope.
     var self = this;
-    //app.use(express.static('static'));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({
+        "extended": false
+    }));
+ 
+    app.use(express.static('static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
