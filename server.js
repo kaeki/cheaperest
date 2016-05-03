@@ -15,7 +15,7 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-    app.use('/static', express.static(__dirname + '/static'));
+    //app.use('/static', express.static(__dirname + '/static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
@@ -166,6 +166,9 @@ var SampleApp = function() {
             });
         };
         self.routes['/saveBar'] = function (req, res) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
             var connection_string = self.getConf();
             var MongoClient = require('mongodb').MongoClient;  
             // the client db connection scope is wrapped in a callback:
