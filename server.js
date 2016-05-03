@@ -4,9 +4,6 @@ var express = require('express');
 var fs      = require('fs');
 var mongodb = require('mongodb');
 
-var app = express();
-var bodyParser = require("body-parser");
-var router = express.Router();
 /**
  *  Define the sample application.
  */
@@ -15,7 +12,6 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-    //app.use('/static', express.static(__dirname + '/static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
@@ -190,7 +186,14 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
-
+        self.routes['/cheaperest'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('cheaperest2.0/index.html') );
+        };
+        self.routes['/webform'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('cheaperest2.0/webform.html') );
+        };
     };
 
 
