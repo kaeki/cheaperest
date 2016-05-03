@@ -11,7 +11,7 @@ var SampleApp = function() {
 
     //  Scope.
     var self = this;
-    app.use(express.static('static'));
+    //app.use(express.static('static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
@@ -185,7 +185,7 @@ var SampleApp = function() {
         };
         self.routes['/cheaperest'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('cheaperest2.0/index.html') );
+            res.send(self.cache_get('index.html') );
         };
         self.routes['/webform'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
