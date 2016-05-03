@@ -15,7 +15,7 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-    app.use(express.static('static'));
+    app.use('/static', express.static(__dirname + '/static'));
     /* =================================================================  */
     /* ==  MONGODB, FIRST EXPERIMENTS ==================================  */
     /* =================================================================  */
