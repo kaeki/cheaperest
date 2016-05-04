@@ -52,18 +52,37 @@ var apiApp = function () {
     });
     router.route("/bars").get(function(req, res){
         var connection_string = self.getConf();
-            var MongoClient = require('mongodb').MongoClient;  
-            // the client db connection scope is wrapped in a callback:
-            MongoClient.connect('mongodb://' + connection_string, function (err, db) {
-                if (err) throw err;
-                var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
-                    console.dir(docs);
-                    res.header("Access-Control-Allow-Origin", "*");
-                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-                    res.send(docs);
-                    db.close();
-                });
+        var MongoClient = require('mongodb').MongoClient;  
+        // the client db connection scope is wrapped in a callback:
+        MongoClient.connect('mongodb://' + connection_string, function (err, db) {
+            if (err) throw err;
+            var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
+                console.dir(docs);
+                res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                res.send(docs);
+                db.close();
             });
+        });
+    });
+
+    router.route("/saveBar").post(function(req, res){
+        var connection_string = self.getConf();
+        var MongoClient = require('mongodb').MongoClient;  
+        // the client db connection scope is wrapped in a callback:
+        MongoClient.connect('mongodb://' + connection_string, function (err, db) {
+            var name = req.body.name;
+            var address = req.body.address;
+            var postCode = req.body.postCode;
+            var city = req.body.city;
+            var lat = parseFloat(req.body.lat);
+            var lon = parseFloat(req.body.lon);
+            self.db.collection('bars').insert( {'name':name, 'address':address, 'postCode':postCode, 'city': city, 'location':[lon,lat]}, function(err, records){
+            if (err) { throw err; }
+            res.end('success');
+            });
+            db.close();
+        });
     });
  
     app.use('/', router);
