@@ -58,8 +58,6 @@ var apiApp = function () {
             if (err) throw err;
             var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
                 console.dir(docs);
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 res.send(docs);
                 db.close();
             });
@@ -77,9 +75,15 @@ var apiApp = function () {
             var city = req.body.city;
             var lat = parseFloat(req.body.lat);
             var lon = parseFloat(req.body.lon);
-            self.db.collection('bars').insert( {'name':name, 'address':address, 'postCode':postCode, 'city': city, 'location':[lon,lat]}, function(err, records){
-            if (err) { throw err; }
-            res.send('success');
+            self.db.collection('bars').insertOne( 
+                {   'name':name, 
+                    'address':address, 
+                    'postCode':postCode, 
+                    'city': city, 
+                    'location':[lon,lat]}, 
+                    function(err, records){
+                        if (err) { throw err; }
+                res.send('success');
             });
             db.close();
         });
