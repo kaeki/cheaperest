@@ -77,7 +77,8 @@ var apiApp = function () {
         var MongoClient = require('mongodb').MongoClient;  
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
-            self.db.collection('bars').insertOne( 
+            if (err) throw err;
+            db.collection('bars').insertOne( 
                 {   
                     'name':name, 
                     'address':address, 
