@@ -33,7 +33,7 @@ function showLocation(location){
 	$.ajax({
 		url: url,
 		type: 'POST',
-        data: JSON.stringify(barData),
+        data: barData,
         contentType: 'application/json; charset=utf-8',
 		dataType: 'json',
 		success: function (json) {
