@@ -32,14 +32,14 @@ function showLocation(location){
 
 	var url = "http://barbababa-skeletor.rhcloud.com/saveBar";
 
-	$.post(url, barData, function(data){
-        if(confirm("Bar added succesfully!")){
-        	location.reload();
-        }
-        else{
-        	location.reload();
-        }
-    });
+	$.post(url, barData);
+
+    if(confirm("Bar added succesfully!")){
+    	location.reload();
+    }
+    else{
+    	location.reload();
+    }
 
 
 /*
