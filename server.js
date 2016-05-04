@@ -84,7 +84,7 @@ var apiApp = function () {
                     'address':address, 
                     'postCode':postCode, 
                     'city': city, 
-                    'location':[lon,lat]
+                    'location':[{lon: lon, lat: lat}]
                 }, 
                 function(err, result) {
                     assert.equal(err, null);
