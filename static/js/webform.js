@@ -18,15 +18,15 @@ function geocodeAddress(address) {
 	});
 }
 function showLocation(location){
-	var barData = {
+	var barData = [{
 		name: $('#name').val(),
 		address: $('#address').val(),
 		postCode: $('#postCode').val(),
 		city: $('#city').val(),
 		lat: location.lat,
 		lon: location.lon
-	}
-	console.log(barData);
+	}]
+	console.log(JSON.stringify(barData));
 
 	var url = "http://barbababa-skeletor.rhcloud.com/saveBar";
 
