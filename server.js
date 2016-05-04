@@ -79,7 +79,7 @@ var apiApp = function () {
             var lon = parseFloat(req.body.lon);
             self.db.collection('bars').insert( {'name':name, 'address':address, 'postCode':postCode, 'city': city, 'location':[lon,lat]}, function(err, records){
             if (err) { throw err; }
-            res.end('success');
+            res.send('success');
             });
             db.close();
         });
