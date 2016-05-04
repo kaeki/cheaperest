@@ -7,7 +7,7 @@ function geocodeAddress(address) {
 	   		const location = {
 	   			lat: results[0].geometry.location.lat(),
 	   			lon: results[0].geometry.location.lng(),
-	   			postCode: results[0].address_components[5].long_name;
+	   			postCode: results[0].address_components[5].long_name
 	   		};
 	   		showLocation(location);
 	    }
