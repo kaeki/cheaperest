@@ -66,7 +66,7 @@ var apiApp = function () {
         });
     });
 
-    router.route("/saveBar").post(function(req, res){
+    router.route("/saveBar").get(function(req, res){
         var connection_string = self.getConf();
         var MongoClient = require('mongodb').MongoClient;  
         // the client db connection scope is wrapped in a callback:

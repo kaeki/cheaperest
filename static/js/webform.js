@@ -17,22 +17,23 @@ function geocodeAddress(address) {
 	    }
 	});
 }
+
 function showLocation(location){
-	var barData = [{
+	var barData = {
 		name: $('#name').val(),
 		address: $('#address').val(),
 		postCode: $('#postCode').val(),
 		city: $('#city').val(),
 		lat: location.lat,
 		lon: location.lon
-	}]
+		};
 	console.log(JSON.stringify(barData));
 
 	var url = "http://barbababa-skeletor.rhcloud.com/saveBar";
 
 	$.ajax({
 		url: url,
-		type: 'POST',
+		type: 'GET',
         data: barData,
         contentType: 'application/json; charset=utf-8',
 		dataType: 'json',
@@ -40,7 +41,6 @@ function showLocation(location){
 			console.log(json);
 		}
 	});
-	
 };
 
 $("#barForm").submit(function( event ) {
