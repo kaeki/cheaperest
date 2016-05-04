@@ -23,7 +23,7 @@ function showLocation(location){
 	var barData = {
 		name: $('#name').val(),
 		address: $('#address').val(),
-		postCode: $('#postCode').val(),
+		postCode: location.postCode,
 		city: $('#city').val(),
 		lat: location.lat,
 		lon: location.lon
