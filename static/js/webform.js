@@ -6,7 +6,8 @@ function geocodeAddress(address) {
 	    if (status == google.maps.GeocoderStatus.OK) {
 	   		const location = {
 	   			lat: results[0].geometry.location.lat(),
-	   			lon: results[0].geometry.location.lng()
+	   			lon: results[0].geometry.location.lng(),
+	   			postCode: results[0].address_components[5].long_name;
 	   		};
 	   		showLocation(location);
 	    }
@@ -18,6 +19,7 @@ function geocodeAddress(address) {
 }
 
 function showLocation(location){
+	console.log(location.postCode);
 	var barData = {
 		name: $('#name').val(),
 		address: $('#address').val(),
