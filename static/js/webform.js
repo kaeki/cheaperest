@@ -35,10 +35,10 @@ function showLocation(location){
 	$.post(url, barData);
 
     if(confirm("Bar added succesfully!")){
-    	location.reload();
+    	window.location.reload();
     }
     else{
-    	location.reload();
+    	window.location.reload();
     }
 
 
