@@ -6,7 +6,8 @@ var bodyParser = require("body-parser");
 var router = express.Router();
 var fs      = require('fs');
 var mongodb = require('mongodb');
- 
+var assert = require('assert');
+
 var apiApp = function () {
  
     var self = this;
@@ -65,27 +66,29 @@ var apiApp = function () {
     });
 
     router.route("/saveBar").post(function(req, res){
+        var name = req.body.name;
+        var address = req.body.address;
+        var postCode = req.body.postCode;
+        var city = req.body.city;
+        var lat = parseFloat(req.body.lat);
+        var lon = parseFloat(req.body.lon);
         var connection_string = self.getConf();
         var MongoClient = require('mongodb').MongoClient;  
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
-            var name = req.body.name;
-            var address = req.body.address;
-            var postCode = req.body.postCode;
-            var city = req.body.city;
-            var lat = parseFloat(req.body.lat);
-            var lon = parseFloat(req.body.lon);
             self.db.collection('bars').insertOne( 
-                {   'name':name, 
+                {   
+                    'name':name, 
                     'address':address, 
                     'postCode':postCode, 
                     'city': city, 
-                    'location':[lon,lat]}, 
-                    function(err, records){
-                        if (err) { throw err; }
-                res.send('success');
-            });
-            db.close();
+                    'location':[lon,lat]
+                }, 
+                function(err, result) {
+                    assert.equal(err, null);
+                    console.log("Inserted a document into the bars collection.");
+                    db.close();
+                });
         });
     });
  
