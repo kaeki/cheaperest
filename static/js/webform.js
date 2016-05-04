@@ -2,13 +2,12 @@ function geocodeAddress(address) {
 	console.log("gcA0");
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({address: address}, function(results, status) {
-		console.log("on response");
+		console.log(results);
 	    if (status == google.maps.GeocoderStatus.OK) {
 	   		const location = {
 	   			lat: results[0].geometry.location.lat(),
 	   			lon: results[0].geometry.location.lng()
 	   		};
-	   		console.log("loc: "+location);
 	   		showLocation(location);
 	    }
 	    else{
@@ -31,8 +30,8 @@ function showLocation(location){
 
 	var url = "http://barbababa-skeletor.rhcloud.com/saveBar";
 
-	$.post(url, barData, function(data, status){
-        console.log("Data: " + data + "\nStatus: " + status);
+	$.post(url, barData, function(data){
+        console.log(data);
     });
 
 /*
