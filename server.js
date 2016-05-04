@@ -43,7 +43,7 @@ var apiApp = function () {
             "message": "Hello World"
         });
     });
- 
+
     //Routing example
     router.route("/test").get(function (req, res) {
         var response = {
@@ -66,6 +66,7 @@ var apiApp = function () {
     });
 
     router.route("/saveBar").post(function(req, res){
+        console.log(req.body);
         var name = req.body.name;
         var address = req.body.address;
         var postCode = req.body.postCode;
