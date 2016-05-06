@@ -77,7 +77,10 @@ function createMap(barsArray, lat, lon){
 
 //Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
-	var dropdownHTML = '<div class="input-group">'+
+	var dropdownHTML = 
+		'<div class="container">'+
+	    '<div class="col-sm-8">'+
+		'<div class="input-group">'+
 		'<input type="TextBox" ID="ranking" Class="form-control"></input>'+
 		'<div class="input-group-btn">'+
 		'<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'+
@@ -91,7 +94,7 @@ function addBarMarker(barsArray, mymap){
 	    '<li><a href="#">5</a></li>'+
 		'</ul>'+
 		'</div>'+
-		'</div>';
+		'</div></div></div>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
 		marker.bindPopup('<div class="mapMarker" id="'+'"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
