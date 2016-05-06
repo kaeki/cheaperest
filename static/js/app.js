@@ -79,7 +79,7 @@ function createMap(barsArray, lat, lon){
 function addBarMarker(barsArray, mymap){
 	var dropdownHTML = 
 		'<div class="container">'+
-	    '<div class="col-sm-8">'+
+	    '<div class="col-sm-1">'+
 		'<div class="input-group">'+
 		'<input type="TextBox" ID="ranking" Class="form-control"></input>'+
 		'<div class="input-group-btn">'+
