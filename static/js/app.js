@@ -85,7 +85,7 @@ function addBarMarker(barsArray, mymap){
 function sortBarPerRating(barsArray){
 
 	for (var i = 0; i < barsArray.length; i++){
-		if (barsArray[i].rating != "undefined"){
+		if (i < barsArray[i].rating.length){
 			var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
 			var avg = sum / barsArray[i].rating.length;
 			barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
