@@ -95,7 +95,7 @@ function addBarMarker(barsArray, mymap){
 		'</div>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
-		marker.bindPopup('<div class="mapMarker" id="'+'"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
+		marker.bindPopup('<div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
 			'<br>Rating: '+barsArray[i].ratingAvg+'/5s<br>'+
 			dropdownHTML+'</div>');
 	};
