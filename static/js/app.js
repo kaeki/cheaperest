@@ -47,12 +47,17 @@ function getBars(){
 }
 getBars();
 function barCallBack(barsArray){
-	createMap(barsArray);
+	var lat = 60.169768;
+	var lon = 24.938578;
+	createMap(barsArray, lat, lon);
 	setSideBoxHTML(barsArray);
 	searchBarAutofill(barsArray);
+	$('#locate').click(function(event) {
+		getLocation();
+	});
 }
-function createMap(barsArray){
-	var mymap = L.map('mapid').setView([60.169768, 24.938578], 13);
+function createMap(barsArray, lat, lon){
+	var mymap = L.map('mapid').setView([lat, lon], 13);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -113,6 +118,19 @@ function searchBarAutofill(arrayOfBars){
 
 	awesomplete.list = barNameArray;
 }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        $('#locationError').HTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position){
+	var lat = position.coords.latitude;
+	var lon = position.coords.longitude;
+	createMap(barsArray, lat, lon);
+}
+
 
 function showBarInfo(barName){
 

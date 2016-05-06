@@ -84,7 +84,8 @@ var apiApp = function () {
                     'address':address, 
                     'postCode':postCode, 
                     'city': city, 
-                    'location':{lon: lon, lat: lat}
+                    'location':{lon: lon, lat: lat},
+                    'rating': []
                 }, 
                 function(err, result) {
                     assert.equal(err, null);
@@ -92,6 +93,10 @@ var apiApp = function () {
                     db.close();
                 });
         });
+    });
+    router.route("/webform").get(function (req, res) {
+
+        res.send('webform.html');
     });
  
     app.use('/', router);
