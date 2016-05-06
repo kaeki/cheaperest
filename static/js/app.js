@@ -1,6 +1,6 @@
 //Testi-Baarit
 
-
+/*
 var barsArray = [{
 					ID: 1,
 					name: "Bar Barbababa",
@@ -25,7 +25,6 @@ var barsArray = [{
 				}];
 
 
-/*
 //Gets Bars from google sheet / OR NOT
 function getBars (){
 	 // ID of the Google Spreadsheet
@@ -41,13 +40,17 @@ function getBars(){
 		url: url,
 		dataType: 'json',
 		success: function (json) {
-			console.log(json);
+			barCallBack(json);
 			
 		}
 	});
 }
 getBars();
-
+function barCallBack(barsArray){
+	createMap(barsArray);
+	setSideBoxHTML(barsArray);
+	searchBarAutofill(barsArray);
+}
 function createMap(barsArray){
 	var mymap = L.map('mapid').setView([60.169768, 24.938578], 13);
 
@@ -58,17 +61,14 @@ function createMap(barsArray){
 	    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
 	}).addTo(mymap);
 
-	for (var i=0; i < barsArray.length; i++){
-	var marker = L.marker([barsArray[i].lat, barsArray[i].lon]).addTo(mymap);
-	marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
-	}
+
 	addBarMarker(barsArray, mymap);
 };
 
 
 function addBarMarker(barsArray, mymap){
 	for (var i=0; i < barsArray.length; i++){
-		var marker = L.marker([barsArray[i].lat, barsArray[i].lon]).addTo(mymap);
+		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
 		marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
 	};
 }
@@ -170,8 +170,3 @@ function showBarInfo(barName){
 	};
 }
 
-$(document).ready(function(){
-	createMap(barsArray);
-	setSideBoxHTML(barsArray);
-	searchBarAutofill(barsArray);
-});
