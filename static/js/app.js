@@ -1,7 +1,7 @@
 //Testi-Baarit
 
 /*
-var barsArray = [{
+var testArray = [{
 					ID: 1,
 					name: "Bar Barbababa",
 					address: "Nönönö 12, HKI",
@@ -33,6 +33,8 @@ function getBars (){
 	 // Make sure it is public or set to Anyone with link can view 
 	 var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/basic?alt=json";
 */ 
+
+//Gets bars from API
 function getBars(){
 	var url = "http://barbababa-skeletor.rhcloud.com/bars";
 	var mydata = [];
@@ -46,6 +48,8 @@ function getBars(){
 	});
 }
 getBars();
+
+//When getBars is ready, data is used to do these things
 function barCallBack(barsArray){
 	var lat = 60.169768;
 	var lon = 24.938578;
@@ -56,6 +60,7 @@ function barCallBack(barsArray){
 		getLocation();
 	});
 }
+//function for setting up Map
 function createMap(barsArray, lat, lon){
 	var mymap = L.map('mapid').setView([lat, lon], 13);
 
@@ -66,44 +71,55 @@ function createMap(barsArray, lat, lon){
 	    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
 	}).addTo(mymap);
 
-
 	addBarMarker(barsArray, mymap);
 };
 
-
+//Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
 		marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
 	};
 }
-function barRatingAverage (ratingArray){
-	var sum = 0;
-	for (var i=0; i < ratingArray.length; i++){
-		sum += parseInt(ratingArray[i]);
-	};
-	var unrounded = sum / ratingArray.length;
-	var ratingAverage = Math.round(unrounded * 10) / 10;
-	return ratingAverage;
+//Calculates bars Average rating, rounds it and sorts array
+function sortBarPerRating(barsArray){
+	for (var i = 0; i < barsArray.length; i++){
+		var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
+		var avg = sum / barsArray[i].rating.length;
+		barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
+	}
+	var sortedArray = barsArray.sort(function(a, b){
+ 		return a.ratingAvg-b.ratingAvg;
+	});
+	return sortedArray;
 }
 
+//Sets data to sidebox
+function threeBarsHTML(barsArray){
+	var HTML;
+	var count = 1;
+	for (var i=barsArray.length-1; i > barsArray.length-4; i--){
+		HTML += '<tr><td>'+(count++)+'.</td><td><a href="#" onclick="showBarInfo('+barsArray[i].name+')">'+
+		barsArray[i].name+'</a></td><td>'+barsArray[i].address+'</td><td>'+barsArray[i].ratingAvg+'/5</td></tr>';
+	}
+	return HTML;
+}
 function setSideBoxHTML(barsArray){
-	var sideBoxHTML;
-	for (var i=0; i < barsArray.length; i++){
-		var rating = barRatingAverage(barsArray[i].rating)
-		var barName = barsArray[i].name;
-		sideBoxHTML += '<tr><td>'+(i+1)+'.</td><td><a href="#" onclick="showBarInfo('+barName+')">'+
-		barsArray[i].name+'</a></td><td>'+barsArray[i].address+'</td><td>'+rating+'/5</td></tr>';
-	};
-
-	$('#topThree').append(sideBoxHTML);
-	$('#newBars').append(sideBoxHTML);
+	//Sets top three 
+	var topThreeArr = sortBarPerRating(barsArray);
+	var topThreeHTML = threeBarsHTML(topThreeArr);
+	//Sets new bars
+	var newBarsHTML = threeBarsHTML(barsArray);
+	$('#topThree').append(topThreeHTML);
+	$('#newBars').append(newBarsHTML);
 }
 
 function barSearchFunction(){
 	bar = $('#barSearch').val();
 	showBarInfo(bar)
-};;
+};
+
+//Fills the autofill in search box with bar names
 function searchBarAutofill(arrayOfBars){
 	var input = document.getElementById("barSearch");
 	var awesomplete = new Awesomplete(input, {
