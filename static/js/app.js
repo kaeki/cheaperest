@@ -53,8 +53,8 @@ getBars();
 function barCallBack(barsArray){
 	var lat = 60.169768;
 	var lon = 24.938578;
-	createMap(barsArray, lat, lon);
 	setSideBoxHTML(barsArray);
+	createMap(barsArray, lat, lon);
 	searchBarAutofill(barsArray);
 	$('#locate').click(function(event) {
 		getLocation();
@@ -62,7 +62,8 @@ function barCallBack(barsArray){
 }
 //function for setting up Map
 function createMap(barsArray, lat, lon){
-	var mymap = L.map('mapid').setView([lat, lon], 13);
+	var mymap = L.map('mapid');
+	mymap.setView([lat, lon], 13);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -71,14 +72,35 @@ function createMap(barsArray, lat, lon){
 	    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
 	}).addTo(mymap);
 
+    mymap.featureLayer.on('click', function(e) {
+        map.panTo(e.layer.getLatLng());
+    });
+
 	addBarMarker(barsArray, mymap);
 };
 
 //Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
+	var dropdownHTML = '<div class="input-group">'+
+		'<input type="TextBox" ID="ranking" Class="form-control"></input>'+
+		'<div class="input-group-btn">'+
+		'<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'+
+		'<span class="caret"></span>'+
+		'</button>'+
+	    '<ul id="rankMenu" class="dropdown-menu">'+
+	    '<li>1</li>'+
+	    '<li>2</li>'+
+	    '<li>3</li>'+
+	   	'<li>4</li>'+
+	    '<li>5</li>'+
+		'</ul>'+
+		'</div>'+
+		'</div>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
-		marker.bindPopup("<b>"+barsArray[i].name+"</b><br>"+barsArray[i].address+".").openPopup();
+		marker.bindPopup('<div class="mapMarker" id="'+'"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
+			'<br>Rating: '+barsArray[i].ratingAvg+'<br>'+
+			dropdownHTML+'</div>').openPopup();
 	};
 }
 //Calculates bars Average rating, rounds it and sorts array
@@ -152,7 +174,7 @@ function showPosition(position){
 
 
 function showBarInfo(barName){
-
+	L.map('mapid').setView([lat, lon], 13);
 	switch(barName){
 		case "Bar Barbababa":
 			$('#barInfo').html(
