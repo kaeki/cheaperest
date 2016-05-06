@@ -83,10 +83,13 @@ function addBarMarker(barsArray, mymap){
 }
 //Calculates bars Average rating, rounds it and sorts array
 function sortBarPerRating(barsArray){
+
 	for (var i = 0; i < barsArray.length; i++){
-		var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
-		var avg = sum / barsArray[i].rating.length;
-		barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
+		if (barsArray[i].rating != null){
+			var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
+			var avg = sum / barsArray[i].rating.length;
+			barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
+		}
 	}
 	var sortedArray = barsArray.sort(function(a, b){
  		return a.ratingAvg-b.ratingAvg;
