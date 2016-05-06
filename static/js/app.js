@@ -72,10 +72,6 @@ function createMap(barsArray, lat, lon){
 	    accessToken: 'pk.eyJ1IjoiYXR0ZWplZSIsImEiOiJjaW5mdnpvY2UwMDd4dnltNXY1YnYyZ2l5In0.Nw7B-YX52ITNbME_rm6B5A'
 	}).addTo(mymap);
 
-    mymap.featureLayer.on('click', function(e) {
-        map.panTo(e.layer.getLatLng());
-    });
-
 	addBarMarker(barsArray, mymap);
 };
 
