@@ -110,7 +110,7 @@ var apiApp = function () {
         //db.collection(bar) UPDATE function HERE
 
 
-
+        db.close();
         });
     });
     router.route("/webform").get(function (req, res) {
