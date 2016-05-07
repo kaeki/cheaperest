@@ -77,6 +77,8 @@ function createMap(barsArray, lat, lon){
 
 function sendRate(){
 	console.log("sendRate");
+	var rate = $('#selectRate').val();
+	console.log(rate);
 }
 $('#rate').click(function(){
 	var rate = $('#selectRate').val();
