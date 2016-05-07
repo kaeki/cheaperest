@@ -106,6 +106,7 @@ var apiApp = function () {
             if (err) throw err;
    
                 console.log('Datatatatattata');
+                console.log('id :'+id+', rate:'+rate);
         //db.collection(bar) UPDATE function HERE
 
 
