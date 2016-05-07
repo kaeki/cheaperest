@@ -77,9 +77,22 @@ function createMap(barsArray, lat, lon){
 
 function sendRate(){
 	var rate = $('#selectRate').val();
-	console.log(rate);
 	var id = $('#barID').attr("value");
-	console.log(id);
+	var data = {
+				id: id,
+				rate: rate
+				};
+	var url = "http://barbababa-skeletor.rhcloud.com/updateBar";
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: data,
+		dataType: 'json',
+		success: function (json) {
+			$('#ratingOK').html('Noice!');
+		}
+	});
 }
 //Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
@@ -94,7 +107,7 @@ function addBarMarker(barsArray, mymap){
 			'<option>5</option>'+
 			'</select>'+
 			'</div>'+
-			'<button class="btn btn-default" id="rate" onclick="sendRate();">Rate bar</button>';
+			'<button class="btn btn-default" id="rate" onclick="sendRate();">Rate bar</button><span id="ratingOK"></span>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
 		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+'"></span><div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+

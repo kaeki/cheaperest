@@ -94,6 +94,24 @@ var apiApp = function () {
                 });
         });
     });
+    router.route("/updateBar").post(function(req, res){
+        console.log(req.body);
+        var id = req.body.id;
+        var rate = req.body.rate;
+
+        var connection_string = self.getConf();
+        var MongoClient = require('mongodb').MongoClient;  
+        // the client db connection scope is wrapped in a callback:
+        MongoClient.connect('mongodb://' + connection_string, function (err, db) {
+            if (err) throw err;
+   
+                console.log('Datatatatattata');
+        //db.collection(bar) UPDATE function HERE
+
+
+
+        });
+    });
     router.route("/webform").get(function (req, res) {
 
         res.send('webform.html');
