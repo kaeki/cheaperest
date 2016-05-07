@@ -78,21 +78,16 @@ function createMap(barsArray, lat, lon){
 //Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
 	var dropdownHTML = 
-		'<div class="input-group">'+
-		'<input type="TextBox" ID="ranking" Class="form-control"></input>'+
-		'<div class="input-group-btn">'+
-		'<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'+
-		'<span class="caret"></span>'+
-		'</button>'+
-	    '<ul id="rankMenu" class="dropdown-menu">'+
-	    '<li><a href="#">1</a></li>'+
-	    '<li><a href="#">2</a></li>'+
-	    '<li><a href="#">3</a></li>'+
-	   	'<li><a href="#">4</a></li>'+
-	    '<li><a href="#">5</a></li>'+
-		'</ul>'+
-		'</div>'+
-		'</div>';
+			'<div class="form-group">'+
+			'<label for="sel1">Select list:</label>'+
+			'<select class="form-control" id="sel1">'+
+			'<option>1</option>'+
+			'<option>2</option>'+
+			'<option>3</option>'+
+			'<option>4</option>'+
+			'<option>5</option>'+
+			'</select>'+
+			'</div>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
 		marker.bindPopup('<div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
