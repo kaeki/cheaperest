@@ -91,6 +91,7 @@ function sendRate(){
 		dataType: 'json',
 		success: function () {
 			$('#ratingOK').html('Noice!');
+			console.log(data);
 		}
 	});
 }

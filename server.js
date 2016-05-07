@@ -104,13 +104,18 @@ var apiApp = function () {
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
-   
-                console.log('Datatatatattata');
-                console.log('id :'+id+', rate:'+rate);
-        //db.collection(bar) UPDATE function HERE
-
-
-        db.close();
+            db.collection("bars").findAndModify(
+                { _id: id },     // query
+                [],               // represents a sort order if multiple matches
+                { $push: {rating: rate} },   // update statement
+                { new: true },    // options - new to return the modified document
+                function(err,doc) {
+                 assert.equal(err, null);
+                    console.log("Inserted a document into the bars collection.");
+                    res.send('noice!')
+                    db.close();
+                }
+            );
         });
     });
     router.route("/webform").get(function (req, res) {
