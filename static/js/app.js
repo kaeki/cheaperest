@@ -56,10 +56,10 @@ function barCallBack(barsArray){
 	setSideBoxHTML(barsArray);
 	createMap(barsArray, lat, lon);
 	searchBarAutofill(barsArray);
-	$('#locate').click(function(event) {
+	$('#locate').click(function() {
 		getLocation();
 	});
-	$('#rate').click(function(event){
+	$('#rate').click(function(){
 		var rate = $('#selectRate').val();
 		console.log(rate);
 	});
