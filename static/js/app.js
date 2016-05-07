@@ -76,15 +76,11 @@ function createMap(barsArray, lat, lon){
 };
 
 function sendRate(){
-	console.log("sendRate");
 	var rate = $('#selectRate').val();
 	console.log(rate);
+	var id = $('#barID').val();
+	console.log(id);
 }
-$('#rate').click(function(){
-	var rate = $('#selectRate').val();
-	console.log('rate');
-	console.log(rate);
-});
 //Sets all the bars as markers to map
 function addBarMarker(barsArray, mymap){
 	var dropdownHTML = 
@@ -101,7 +97,7 @@ function addBarMarker(barsArray, mymap){
 			'<button class="btn btn-default" id="rate" onclick="sendRate();">Rate bar</button>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
-		marker.bindPopup('<div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
+		marker.bindPopup('<span id="barID" style="visibility:hidden">'+barsArray[i]._id+'<div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
 			'<br>Rating: '+barsArray[i].ratingAvg+'/5s<br>'+
 			dropdownHTML+'</div>');
 	};
