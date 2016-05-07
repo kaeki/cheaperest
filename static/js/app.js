@@ -83,7 +83,7 @@ function sendRate(){
 				rate: rate
 				};
 	var url = "http://barbababa-skeletor.rhcloud.com/updateBar";
-
+	console.log(data);
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -99,7 +99,7 @@ function sendRate(){
 function addBarMarker(barsArray, mymap){
 	var dropdownHTML = 
 			'<div class="form-group">'+
-			'<label for="sel1">Select list:</label>'+
+			'<label for="sel1">Select rating:</label>'+
 			'<select class="form-control" id="selectRate">'+
 			'<option>1</option>'+
 			'<option>2</option>'+
@@ -111,8 +111,8 @@ function addBarMarker(barsArray, mymap){
 			'<button class="btn btn-default" id="rate" onclick="sendRate();">Rate bar</button><span id="ratingOK"></span>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
-		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+'"></span><div class="mapMarker" style="font-size: 1,65em;"><b>'+barsArray[i].name+'</b><br>'+barsArray[i].address+'.'+
-			'<br>Rating: '+barsArray[i].ratingAvg+'/5<br>'+
+		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+'"></span><div class="mapMarker" style="font-size: 1,65em;"><h3>'+barsArray[i].name+'</h3><br><p>'+barsArray[i].address+'.'+
+			'</p><br><p>Rating: '+barsArray[i].ratingAvg+'/5</p><br>'+
 			dropdownHTML+'</div>');
 	};
 }
