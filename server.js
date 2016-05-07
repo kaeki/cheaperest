@@ -112,7 +112,6 @@ var apiApp = function () {
                 function(err,doc) {
                  assert.equal(err, null);
                     console.log("Inserted a document into the bars collection.");
-                    res.send('noice!')
                     db.close();
                 }
             );

@@ -111,8 +111,10 @@ function addBarMarker(barsArray, mymap){
 			'<button class="btn btn-default" id="rate" onclick="sendRate();">Rate bar</button><span id="ratingOK"></span>';
 	for (var i=0; i < barsArray.length; i++){
 		var marker = L.marker([barsArray[i].location.lat, barsArray[i].location.lon]).addTo(mymap);
-		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+'"></span><div class="mapMarker" style="font-size: 1,65em;"><h3>'+barsArray[i].name+'</h3><br><p>'+barsArray[i].address+'.'+
-			'</p><br><p>Rating: '+barsArray[i].ratingAvg+'/5</p><br>'+
+		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+
+			'"></span><div class="mapMarker" style="font-size: 1,65em;"><h3>'+
+			barsArray[i].name+'</h3><p>'+barsArray[i].address+
+			'</p><p>Rating: '+barsArray[i].ratingAvg+'/5</p><br>'+
 			dropdownHTML+'</div>');
 	};
 }
