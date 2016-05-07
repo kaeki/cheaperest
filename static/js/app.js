@@ -89,7 +89,7 @@ function sendRate(){
 		type: 'POST',
 		data: data,
 		dataType: 'json',
-		success: function (json) {
+		success: function () {
 			$('#ratingOK').html('Noice!');
 		}
 	});
