@@ -132,7 +132,9 @@ function sortBarPerRating(barsArray){
 		if (i < barsArray[i].rating.length){
 			var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
 			var avg = sum / barsArray[i].rating.length;
-			barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
+			$(barsArray[i]).extend({
+				ratingAvg : Math.round(avg * 1) / 1;}
+				);
 		}
 	}
 	var sortedArray = barsArray.sort(function(a, b){
