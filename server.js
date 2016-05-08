@@ -7,7 +7,7 @@ var router = express.Router();
 var fs      = require('fs');
 var mongodb = require('mongodb');
 var assert = require('assert');
-
+ var MongoClient = require('mongodb').MongoClient;
 var apiApp = function () {
  
     var self = this;
@@ -53,7 +53,7 @@ var apiApp = function () {
     });
     router.route("/bars").get(function(req, res){
         var connection_string = self.getConf();
-        var MongoClient = require('mongodb').MongoClient;  
+         
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
@@ -73,8 +73,7 @@ var apiApp = function () {
         var city = req.body.city;
         var lat = parseFloat(req.body.lat);
         var lon = parseFloat(req.body.lon);
-        var connection_string = self.getConf();
-        var MongoClient = require('mongodb').MongoClient;  
+        var connection_string = self.getConf(); 
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
@@ -100,7 +99,6 @@ var apiApp = function () {
         var rate = req.body.rate;
 
         var connection_string = self.getConf();
-        var MongoClient = require('mongodb').MongoClient;  
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
@@ -115,7 +113,7 @@ var apiApp = function () {
     });
     router.route("/webform").get(function (req, res) {
 
-        res.send('webform.html');
+        res.send(webform.html);
     });
  
     app.use('/', router);
