@@ -102,7 +102,7 @@ var apiApp = function () {
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
-            db.collection("bars").updateOne(
+            db.collection("bars").update(
                 { "_id": id },     // query
                 { $push: {"rating": rate} },// update statement
                 function(err,doc) {
