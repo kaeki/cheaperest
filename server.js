@@ -59,8 +59,6 @@ var apiApp = function () {
             if (err) throw err;
             var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
                 console.dir(docs);
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 res.send(docs);
                 db.close();
             });
@@ -99,7 +97,7 @@ var apiApp = function () {
         console.log(req.body);
 
         var name = req.body.name;
-        var rate = req.body.rate;
+        var rate = parseInt(req.body.rate);
 
         var connection_string = self.getConf();
         // the client db connection scope is wrapped in a callback:

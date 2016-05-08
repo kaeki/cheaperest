@@ -5,26 +5,37 @@ var testArray = [{
 					ID: 1,
 					name: "Bar Barbababa",
 					address: "Nönönö 12, HKI",
+					location:
+					{
 					lat: 60.164964,
-					lon: 24.939901,
+					lon: 24.939901
+					},
 					rating: [4,5,5,5,5,5,5,5]	
 				},{
 					ID: 2,
 					name: "Pub PubloEblo",
 					address: "Nununnu 28, HKI",
+					location:
+					{
 					lat: 60.189295,
-					lon: 24.951231,
+					lon: 24.951231
+					},
 					rating: [3,4,3,3,4,4,3,5,2]
 				},{
 					ID: 3,
 					name: "Bistro Pivo",
 					address: "Juhsad 39, HKI",
+					location:
+					{
 					lat: 60.184260,
-					lon: 24.920331,
+					lon: 24.920331
+					},
 					rating: [3,2,4,3,3,2,2,1]
 				}];
 
+barCallBack(testArray);
 
+/*
 //Gets Bars from google sheet / OR NOT
 function getBars (){
 	 // ID of the Google Spreadsheet
