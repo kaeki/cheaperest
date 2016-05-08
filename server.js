@@ -59,6 +59,8 @@ var apiApp = function () {
             if (err) throw err;
             var collection = db.collection('bars').find().limit(100).toArray(function (err, docs) {
                 console.dir(docs);
+                res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 res.send(docs);
                 db.close();
             });
