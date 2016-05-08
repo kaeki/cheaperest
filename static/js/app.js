@@ -63,6 +63,7 @@ function barCallBack(barsArray){
 		var barName = $('#barŚearch').val();
 		showBarInfo(barName, barsArray);
 	});
+
 }
 //function for setting up Map
 function createMap(barsArray, lat, lon){
@@ -137,6 +138,7 @@ function sortBarPerRating(barsArray){
 	var sortedArray = barsArray.sort(function(a, b){
  		return a.ratingAvg-b.ratingAvg;
 	});
+	console.log(sortedArray);
 	return sortedArray;
 }
 
