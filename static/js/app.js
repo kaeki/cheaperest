@@ -84,7 +84,7 @@ function sendRate(){
 	var name = parseInt($('#mapMarkerDiv').attr("value"));
 	var data = {
 				name: name,
-				rate: rate;
+				rate: rate
 				};
 	var url = "http://barbababa-skeletor.rhcloud.com/updateBar";
 	console.log(data);
