@@ -114,7 +114,7 @@ function addBarMarker(barsArray, mymap){
 		marker.bindPopup('<span id="barID" value="'+barsArray[i]._id+
 			'"></span><div class="mapMarker" style="font-size: 1,65em;"><h3>'+
 			barsArray[i].name+'</h3><p>'+barsArray[i].address+
-			'</p><p>Rating: '+barsArray[i].ratingAvg+'/5</p><br>'+
+			'</p><p>Rating: '+barsArray[i].ratingAvg+'/5</p>'+
 			dropdownHTML+'</div>');
 	};
 }
