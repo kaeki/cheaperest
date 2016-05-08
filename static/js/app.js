@@ -59,6 +59,10 @@ function barCallBack(barsArray){
 	$('#locate').click(function() {
 		getLocation();
 	});
+	$('#barSearchBtn').click(function(){
+		var barName = $('#barŚearch').val();
+		showBarInfo(barName, barsArray);
+	});
 }
 //function for setting up Map
 function createMap(barsArray, lat, lon){
@@ -155,10 +159,6 @@ function setSideBoxHTML(barsArray){
 	$('#newBars').append(newBarsHTML);
 }
 
-function barSearchFunction(){
-	bar = $('#barSearch').val();
-	showBarInfo(bar)
-};
 
 //Fills the autofill in search box with bar names
 function searchBarAutofill(arrayOfBars){
@@ -189,59 +189,18 @@ function showPosition(position){
 }
 
 
-function showBarInfo(barName){
-	L.map('mapid').setView([lat, lon], 13);
-	switch(barName){
-		case "Bar Barbababa":
-			$('#barInfo').html(
-				"<h3>"+barsArray[0].name+"</h3>"+
-				"<p>"+barsArray[0].address+"</p>"+
-				"<p> Rating: 5/5</p>"
+function showBarInfo(barName, barsArray){
+	for (var i=0; i < barsArray.length; i++){
+		if(barName == barsArray[i].name){
+			L.map('mapid').setView([barsArray[i].location.lat, barsArray[i].location.lon], 13);
+			$('#menu1').html(
+				'<h3>'+barsArray[i].name+'</h3>'+
+				'<p>'+barsArray[i].address+'</p>'+
+				'<p>'+barsArray[i].postCode+' '+barsArray[i].city+'</p>'+
+				'<p>Rating: '+barsArray[i].ratingAvg+'/5  Rated '+
+					barsArray[i].rating.length+' times.</p>'
 				);
-			$('#barComments').html(
-				"<h3>Comments</h3><hr>"+
-				"<p>Really cool 5/5</p>"+
-				"<p><strong>Jack Nicholson</strong></p><hr>"+
-				"<p>Super cool 5/5</p>"+
-				"<p><strong>Bruce Lee</strong></p><hr>"+
-				"<p>Really cool 5/5</p>"+
-				"<p><strong>Mr. X</strong></p><hr>"
-				);
-			break;
-		case "Pub PubloEblo":
-			$('#barInfo').html(
-				"<h3>"+barsArray[1].name+"</h3>"+
-				"<p>"+barsArray[1].address+"</p>"+
-				"<p> Rating: 4/5</p>"
-				);
-			$('#barComments').html(
-				"<h3>Comments</h3><hr>"+
-				"<p>Almost cool 4/5</p>"+
-				"<p><strong>Jack Nicholson</strong></p><hr>"+
-				"<p>Nice one 4/5</p>"+
-				"<p><strong>Bruce Lee</strong></p><hr>"+
-				"<p>Lorumitus Ipsumiatus 4/5</p>"+
-				"<p><strong>Mr. X</strong></p><hr>"
-				);
-			break;
-		case "Bistro Pivo":
-			$('#barInfo').html(
-				"<h3>"+barsArray[2].name+"</h3>"+
-				"<p>"+barsArray[2].address+"</p>"+
-				"<p> Rating: 3/5</p>"
-				);
-			$('#barComments').html(
-				"<h3>Comments</h3><hr>"+
-				"<p>Mediocre 3/5</p>"+
-				"<p><strong>Jack Nicholson</strong></p><hr>"+
-				"<p>Still better than nothing 3/5</p>"+
-				"<p><strong>Bruce Lee</strong></p><hr>"+
-				"<p>I almost liked it 3/5</p>"+
-				"<p><strong>Mr. X</strong></p><hr>"
-				);
-			break;
-		default:
-			break;
+		};
 	};
 }
 

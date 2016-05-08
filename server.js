@@ -104,17 +104,19 @@ var apiApp = function () {
         // the client db connection scope is wrapped in a callback:
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
-            db.collection("bars").findAndModify(
+            db.collection("bars").update(
                 { _id: id },     // query
-                [],               // represents a sort order if multiple matches
-                { $push: {rating: rate} },   // update statement
-                { new: true },    // options - new to return the modified document
+                { $push: {rating: [rate]} },// update statement
                 function(err,doc) {
-                 assert.equal(err, null);
-                    console.log("Inserted a document into the bars collection.");
-                    db.close();
+                    if (err || !doc){
+                        console.log("Rating NOT added!");
+                    }
+                    else {
+                        console.log("Rating "+rate+" added to bar with id: "+id);
+                    }
                 }
             );
+            db.close();
         });
     });
     router.route("/webform").get(function (req, res) {
