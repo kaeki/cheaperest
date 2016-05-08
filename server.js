@@ -105,7 +105,7 @@ var apiApp = function () {
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
             db.collection("bars").updateOne(
-                { _"id": id },     // query
+                { "_id": id },     // query
                 { $push: {"rating": rate} },// update statement
                 function(err,doc) {
                     console.log(doc);
