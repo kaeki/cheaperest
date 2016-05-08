@@ -131,17 +131,15 @@ function sortBarPerRating(barsArray){
 	for (var i = 0; i < barsArray.length; i++){
 		if (i < barsArray[i].rating.length){
 			var sum = barsArray[i].rating.reduce(function(a, b) { return a + b; });
+			console.log(barsArray[i].name+" summa: "+sum);
 			var avg = sum / barsArray[i].rating.length;
-			ratingAvg = Math.round(avg * 1) / 1;
-			$(barsArray[i]).extend({
-				ratingAvg : ratingAvg
-			});
+			barsArray[i].ratingAvg = Math.round(avg * 1) / 1;
 		}
 	}
 	var sortedArray = barsArray.sort(function(a, b){
  		return a.ratingAvg-b.ratingAvg;
 	});
-	console.log(sortedArray);
+	console.log(sortedArray)
 	return sortedArray;
 }
 
