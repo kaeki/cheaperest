@@ -95,7 +95,8 @@ var apiApp = function () {
     });
     router.route("/updateBar").post(function(req, res){
         console.log(req.body);
-        var id = req.body.id;
+
+        var name = req.body.name;
         var rate = req.body.rate;
 
         var connection_string = self.getConf();
@@ -103,7 +104,7 @@ var apiApp = function () {
         MongoClient.connect('mongodb://' + connection_string, function (err, db) {
             if (err) throw err;
             db.collection("bars").update(
-                { "_id": id },     // query
+                { "name": name },     // query
                 { $push: {"rating": rate} },// update statement
                 function(err,doc) {
                     console.log(doc);
