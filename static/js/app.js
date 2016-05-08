@@ -80,7 +80,8 @@ function createMap(barsArray, lat, lon){
 };
 
 function sendRate(){
-	var rate = parseInt( $('#selectRate').val(); );
+	var rateString = $('#selectRate').val();
+	var rate = parseInt(rateString);
 	var name = $('#mapMarkerDiv').attr("value");
 	var data = {
 				name: name,
